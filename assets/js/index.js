@@ -7,7 +7,7 @@ cy.on("click", (e) => {
     console.log(e.target);
 });
 
-window.addEventListener("click", (e) => {
+container.addEventListener("click", (e) => {
     let newServer = {
         group: "nodes",
         data:{ id: `node${servers.length}`},
