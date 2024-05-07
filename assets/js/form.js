@@ -12,4 +12,5 @@ btn.onclick = () => {
         }
     });
     isActive = !isActive;
+    btn.innerHTML = isActive ? `<i class="fa fa-x"></i>` : `<i class="fa fa-plus"></i>`;
 };
