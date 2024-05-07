@@ -19,11 +19,9 @@
 <body>
     <div class="container">
         <header>
-            <h2 class="title">Net Simulator</h2>
             <div class="form-container">
-                <form action="" class="form disabled">
-                    <h1 class="form__title">Find Server</h1>
-                    <hr>
+                <form action="" class="form">
+                    <h3 class="form__title">Find Server</h3>
                     <div class="form__input-group horizontal">
                         <div class="form__input vertical">
                             <label for="url" class="form__label">URL</label>
@@ -32,9 +30,8 @@
                         <button type="button" class="form__submit btn">Search</button>
                     </div>
                 </form>
-                <form action="" class="form disabled">
-                    <h1 class="form__title">New Server</h1>
-                    <hr>
+                <form action="" class="form">
+                    <h3 class="form__title">New Server</h3>
                     <div class="form__input-group horizontal">
                         <div class="form__input vertical">
                             <label for="x" class="form__label">X</label>
@@ -48,21 +45,20 @@
                             <label for="websites" class="form__label">Websites</label>
                             <input type="text" name="websites" id="websites" class="form__input-field">
                         </div>
+                        <button type="button" class="form__submit btn">Add</button>
                     </div>
-                    <button type="button" class="form__submit btn">Add</button>
                 </form>
-                <form action="" class="form disabled">
-                    <h1 class="form__title">Server Link</h1>
-                    <hr>
+                <form action="" class="form">
+                    <h3 class="form__title">Server Link</h3>
                     <div class="form__input-group horizontal">
                         <div class="form__input vertical">
-                            <label for="start" class="form__label">First Server</label>
+                            <label for="start" class="form__label">Server1</label>
                             <select name="start" id="start" class="form__input-field">
                                 <option value=""></option>
                             </select>
                         </div>
                         <div class="form__input vertical">
-                            <label for="end" class="form__label">Second Server</label>
+                            <label for="end" class="form__label">Server2</label>
                             <select name="end" id="end" class="form__input-field">
                                 <option value=""></option>
                             </select>
@@ -71,13 +67,13 @@
                             <label for="ping" class="form__label">Ping</label>
                             <input type="number" name="ping" id="ping" class="form__input-field">
                         </div>
+                        <button type="button" class="form__submit btn">Link</button>
                     </div>
     
-                    <button type="button" class="form__submit btn">Link</button>
                 </form>
             </div>
         </header>
-        <div class="cy" id="cy"></div>
+        <!-- <div class="cy" id="cy"></div> -->
     </div>
 
     <script src="node_modules/cytoscape/dist/cytoscape.min.js"></script>
