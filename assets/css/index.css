@@ -72,6 +72,7 @@ ul li {
 }
 
 .btn.disabled {
+    pointer-events: none;
     background-color: white;
     color: black;
     border: 1px solid var(--accent);
