@@ -44,31 +44,33 @@
                             <label for="y" class="form__label">Y</label>
                             <input type="number" name="y" id="y" class="form__input-field">
                         </div>
-                    </div>
-                    <div class="form__input vertical">
-                        <label for="websites" class="form__label">Websites</label>
-                        <input type="text" name="websites" id="websites" class="form__input-field">
+                        <div class="form__input vertical">
+                            <label for="websites" class="form__label">Websites</label>
+                            <input type="text" name="websites" id="websites" class="form__input-field">
+                        </div>
                     </div>
                     <button type="button" class="form__submit btn">Add</button>
                 </form>
                 <form action="" class="form disabled">
                     <h1 class="form__title">Server Link</h1>
                     <hr>
-                    <div class="form__input vertical">
-                        <label for="start" class="form__label">First Server</label>
-                        <select name="start" id="start" class="form__input-field">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                    <div class="form__input vertical">
-                        <label for="end" class="form__label">Second Server</label>
-                        <select name="end" id="end" class="form__input-field">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                    <div class="form__input vertical">
-                        <label for="ping" class="form__label">Ping</label>
-                        <input type="number" name="ping" id="ping" class="form__input-field">
+                    <div class="form__input-group horizontal">
+                        <div class="form__input vertical">
+                            <label for="start" class="form__label">First Server</label>
+                            <select name="start" id="start" class="form__input-field">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="form__input vertical">
+                            <label for="end" class="form__label">Second Server</label>
+                            <select name="end" id="end" class="form__input-field">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="form__input vertical">
+                            <label for="ping" class="form__label">Ping</label>
+                            <input type="number" name="ping" id="ping" class="form__input-field">
+                        </div>
                     </div>
     
                     <button type="button" class="form__submit btn">Link</button>
