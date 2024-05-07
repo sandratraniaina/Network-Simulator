@@ -27,6 +27,7 @@ body {
 
     position: absolute;
     top: 0;
+    z-index: 10;
     height: 100%;
     /* border: 1px solid black; */
     border-radius: 1rem;

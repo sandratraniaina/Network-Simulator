@@ -63,6 +63,7 @@ ul li {
     border-radius: var(--border--soft);
     background-color: var(--accent);
     color: white;
+    cursor: pointer;
 }
 
 .btn {
