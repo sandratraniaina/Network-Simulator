@@ -2,20 +2,23 @@ let container = document.getElementById("cy");
 
 let servers = [];
 
-// Event handling in Cytoscape
-cy.on("click", (e) => {
-    console.log(e.target);
-});
+cy.on('tap', function (e) {
+    var evtTarget = e.target;
 
-container.addEventListener("click", (e) => {
-    let newServer = {
-        group: "nodes",
-        data:{ id: `node${servers.length}`},
-        position: {
-            x: e.clientX,
-            y: e.clientY
+    if (evtTarget !== cy) {
+        // TODO : Handle when do not click on empty area
+    } else {
+        cy.elements().unselect();
+        let newServer = {
+            group: "nodes",
+            data: { id: `node${servers.length}` },
+            position: {
+                x: e.position.x,
+                y: e.position.y
+            }
         }
+        cy.add(newServer);
+        servers.push(newServer);
+        
     }
-    cy.add(newServer);
-    servers.push(newServer);
 });

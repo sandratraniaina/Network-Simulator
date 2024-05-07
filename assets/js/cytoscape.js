@@ -9,7 +9,7 @@ const cy = cytoscape({
             selector: 'node',
             style: {
                 backgroundColor: '#66bbcc',
-                shape: 'ellipse',
+                shape: 'circle',
                 label: 'data(id)', 
                 color: 'black',
                 fontSize: 16,
@@ -26,10 +26,22 @@ const cy = cytoscape({
             }
         },
         {
-            selector: 'selected', 
+            selector: 'node:selected', 
             style: {
-                "border-color": "black",
+                "border-color": "grey",
                 "border-width": 2
+            }
+        }, 
+        {
+            selector: 'node:unselected',
+            style: {
+                backgroundColor: '#66bbcc',
+                shape: 'circle',
+                label: 'data(id)', 
+                color: 'black',
+                fontSize: 16,
+                padding: 10,
+                textMargin: 4
             }
         }
     ]
