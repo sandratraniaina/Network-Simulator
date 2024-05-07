@@ -4,6 +4,7 @@ let isActive = false;
 
 btn.onclick = () => {
     let forms = document.querySelectorAll(".form-container form");
+    btn.classList.toggle("disabled");
     forms.forEach((form) => {
         if (isActive) {
             form.classList.add("disabled");
