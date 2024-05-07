@@ -37,15 +37,6 @@ cy.on('tap', function (e) {
         // TODO : Handle when do not click on empty area
     } else {
         cy.elements().unselect();
-        let newServer = {
-            group: "nodes",
-            data: { id: `node${servers.length}` },
-            position: {
-                x: e.position.x,
-                y: e.position.y
-            }
-        }
-        cy.add(newServer);
-        servers.push(newServer);
+        updateNewServerForm(e.position);
     }
 });
