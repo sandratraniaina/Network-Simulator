@@ -19,6 +19,5 @@ cy.on('tap', function (e) {
         }
         cy.add(newServer);
         servers.push(newServer);
-        
     }
 });
