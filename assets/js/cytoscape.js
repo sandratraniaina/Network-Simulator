@@ -24,6 +24,13 @@ const cy = cytoscape({
                 lineColor: '#ccc',
                 targetArrowShape: 'triangle'
             }
+        },
+        {
+            selector: 'selected', 
+            style: {
+                "border-color": "black",
+                "border-width": 2
+            }
         }
     ]
 });
