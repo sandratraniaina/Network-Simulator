@@ -23,6 +23,7 @@ const newServer = () => {
     };
     cy.add(newServer);
     servers.push(newServer);
+    resetForm(1);
 }
 
 const updateNewServerForm = (position) => {
