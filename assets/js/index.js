@@ -6,8 +6,8 @@ const newServer = () => {
     let x = document.getElementById("x").value;
     let ipAdress = document.getElementById("ip_adress").value;
     let y = document.getElementById("y").value;
-    let webSites = document.getElementById("webSites").value.split(";");
-    if (x == null || y == null || webSites == null || ipAdress) {
+    let webSites = document.getElementById("websites").value.split(";");
+    if (x == null || y == null || webSites == null || ipAdress == "") {
         alert("Input all data");
         return;
     }
@@ -15,8 +15,8 @@ const newServer = () => {
         group: "nodes",
         data: { id: `${ipAdress}` },
         position: {
-            x: x,
-            y: y
+            x: parseInt(x),
+            y: parseInt(y)
         },
         ipAdress: ipAdress,
         sites: webSites
@@ -39,4 +39,8 @@ cy.on('tap', function (e) {
         cy.elements().unselect();
         updateNewServerForm(e.position);
     }
+});
+
+addBtn.addEventListener("click", () => {
+    newServer();
 });
