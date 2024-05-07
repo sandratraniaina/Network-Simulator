@@ -144,7 +144,7 @@
 }
 
 .form.disabled {
-    scale: 0;
+    display: none;
 }
 
 .form.enabled {
