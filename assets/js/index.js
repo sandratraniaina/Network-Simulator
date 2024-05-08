@@ -1,5 +1,7 @@
 let container = document.getElementById("cy");
 
+let startServer = document.getElementById("start");
+
 let servers = [];
 
 let selected;
@@ -51,3 +53,10 @@ cy.on('tap', function (e) {
 addBtn.addEventListener("click", () => {
     newServer();
 });
+
+startServer.addEventListener("change", (e) => {
+    let dropDown = e.target;
+    if (dropDown.value != null) {
+        
+    } 
+})
