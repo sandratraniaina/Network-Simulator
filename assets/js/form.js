@@ -5,6 +5,11 @@ let findBtn = buttons[0];
 let addBtn = buttons[1];
 let linkBtn = buttons[2];
 
+const updateNewServerForm = (position) => {
+    document.getElementById("x").value = position.x;
+    document.getElementById("y").value = position.y;
+}
+
 const resetForm = (index) => {
     let form = forms[index];
     form.reset();

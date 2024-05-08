@@ -26,11 +26,6 @@ const newServer = () => {
     resetForm(1);
 }
 
-const updateNewServerForm = (position) => {
-    document.getElementById("x").value = position.x;
-    document.getElementById("y").value = position.y;
-}
-
 cy.on('tap', function (e) {
     var evtTarget = e.target;
 
