@@ -1,8 +1,8 @@
 const cy = cytoscape({
     container: document.getElementById('cy'),
-    elements: [], 
+    elements: [],
     layout: {
-        name: 'grid' 
+        name: 'grid'
     },
     style: [
         {
@@ -10,7 +10,7 @@ const cy = cytoscape({
             style: {
                 backgroundColor: '#66bbcc',
                 shape: 'circle',
-                label: 'data(id)', 
+                label: 'data(id)',
                 color: 'black',
                 fontSize: 16,
                 padding: 10,
@@ -20,28 +20,17 @@ const cy = cytoscape({
         {
             selector: 'edge',
             style: {
-                width: 2,
+                width: 5,
                 lineColor: '#ccc',
-                targetArrowShape: 'triangle'
+                targetArrowShape: 'triangle',
+                label: 'data(weight)'
             }
         },
         {
-            selector: 'node:selected', 
+            selector: 'node:selected',
             style: {
                 "border-color": "grey",
                 "border-width": 2
-            }
-        }, 
-        {
-            selector: 'node:unselected',
-            style: {
-                backgroundColor: '#66bbcc',
-                shape: 'circle',
-                label: 'data(id)', 
-                color: 'black',
-                fontSize: 16,
-                padding: 10,
-                textMargin: 4
             }
         }
     ]
