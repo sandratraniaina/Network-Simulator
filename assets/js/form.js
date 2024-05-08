@@ -19,6 +19,9 @@ const updateDropDown = (id, data) => {
     let dropDown = document.getElementById(id);
 
     dropDown.innerHTML = "";
+    let newOption = document.createElement("option");
+
+    dropDown.appendChild(newOption);
     for (const value of data) {
         let newOption = document.createElement("option");
 
