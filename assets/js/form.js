@@ -32,3 +32,15 @@ const updateDropDown = (id, data) => {
         dropDown.appendChild(newOption);
     }
 }
+
+const checkForm = (id) => {
+    let form = document.getElementById(id);
+    let inputs = form.querySelectorAll("input");
+    for (const input of inputs) {
+        let value = input.value;
+        if (value == "" || value == null) {
+            return false;
+        }
+    }
+    return true;
+}
