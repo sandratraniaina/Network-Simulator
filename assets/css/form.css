@@ -75,7 +75,7 @@
 }
 
 .form__input-field {
-    padding: 0.4rem 0.8rem;
+    padding: 0.4rem 0.4rem;
     border: 1px solid var(--accent);
     border-radius: var(--border--soft);
 

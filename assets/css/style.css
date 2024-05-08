@@ -24,3 +24,7 @@ header .form-container {
     position: relative;
     right: 35%;
 }
+
+.form-container .form:nth-child(2) {
+    width: 40%;
+}
