@@ -9,3 +9,18 @@ const resetForm = (index) => {
     let form = forms[index];
     form.reset();
 }
+
+const updateDropDown = (id, data) => {
+    let dropDown = document.getElementById(id);
+
+    dropDown.innerHTML = "";
+    for (const value of data) {
+        let newOption = document.createElement("option");
+
+        newOption.setAttribute("value", value.value);
+
+        newOption.textContent = value.text;
+
+        dropDown.appendChild(newOption);
+    }
+}
