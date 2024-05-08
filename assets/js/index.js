@@ -1,6 +1,6 @@
 let container = document.getElementById("cy");
 
-let servers = {};
+let servers = [];
 
 let selected;
 
@@ -25,8 +25,14 @@ const newServer = () => {
         linkedSites: []
     };
     cy.add(newServer);
-    servers[ipAdress] = newServer;
+    servers.push(newServer);
     resetForm(1);
+    updateDropDown("start", servers.map((server, index) => {
+        return {
+            value: index,
+            text: server.ipAdress
+        }
+    }));
 }
 
 cy.on('tap', function (e) {
@@ -34,7 +40,7 @@ cy.on('tap', function (e) {
 
     if (evtTarget !== cy) {
         // TODO : Handle when do not click on empty area
-        let selected = servers[evtTarget.id()];
+        let selected = servers.filter((server) => server.id == evtTarget.id())[0];
         console.log(selected);
     } else {
         cy.elements().unselect();
