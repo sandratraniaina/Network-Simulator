@@ -1,18 +1,28 @@
+body {
+    background: var(--txt-muted);
+    padding: 1rem;
+}
+
 .container {
     width: 100%;
     height: 100%;
 }
 
+.container > div {
+    border-radius: 20px;
+}
+
 .cy {
     width: 100%;
     height: 100%;
+    background: rgba(255, 255, 255, 0.7);
 }
 
 header {
     display: flex;
     justify-content: space-between;
 
-    padding: 1rem;
+    padding:0 0 1rem;
 }
 
 header .form-container {
