@@ -6,6 +6,14 @@ let servers = [];
 
 let selected;
 
+const newLink = () => {
+    let startServer = document.getElementById("start").value;
+    let endServer = document.getElementById("end").value;
+    let ping = document.getElementById("ping").value;
+    
+
+}
+
 const newServer = () => {
     let x = document.getElementById("x").value;
     let ipAdress = document.getElementById("ip_adress").value;
