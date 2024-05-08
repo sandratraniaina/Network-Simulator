@@ -38,3 +38,11 @@ header .form-container {
 .form-container .form:nth-child(2) {
     width: 40%;
 }
+
+#server_info-container {
+    position: absolute;
+    z-index: 2;
+    height: 50%;
+    left: 4%;
+    top: 28%;
+}
