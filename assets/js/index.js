@@ -3,6 +3,7 @@ let container = document.getElementById("cy");
 let startServer = document.getElementById("start");
 
 let servers = [];
+let edges = [];
 
 let selected;
 
@@ -29,7 +30,13 @@ const newLink = () => {
     let endServer = document.getElementById("end").value;
     let ping = document.getElementById("ping").value;
     
+    let newLink = {
+        group: 'edges',
+        data: { id: edges.length, source: startServer, target: endServer, weight: ping }
+    };
 
+    edges.push(newLink);
+    cy.add(newLink);
 }
 
 const newServer = () => {
@@ -55,12 +62,14 @@ const newServer = () => {
     cy.add(newServer);
     servers.push(newServer);
     resetForm(1);
-    updateDropDown("start", servers.map((server, index) => {
+    let serversInfo = servers.map((server, index) => {
         return {
-            value: index,
+            value: server.ipAdress,
             text: server.ipAdress
         }
-    }));
+    });
+    updateDropDown("start", serversInfo);
+    updateDropDown("end", serversInfo);
 }
 
 cy.on('tap', function (e) {
@@ -89,4 +98,8 @@ startServer.addEventListener("change", (e) => {
     if (dropDown.value != null) {
         
     } 
+});
+
+linkBtn.addEventListener("click", () => {
+    newLink();
 });
