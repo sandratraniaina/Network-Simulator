@@ -45,10 +45,6 @@ a {
     text-decoration: none;
 }
 
-ul li {
-    list-style: none;
-}
-
 .btn {
     padding: 0.5rem 1rem;
     border: none;

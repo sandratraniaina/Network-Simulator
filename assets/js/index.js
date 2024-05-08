@@ -6,6 +6,24 @@ let servers = [];
 
 let selected;
 
+const updateServerInformation = () => {
+    let container = document.querySelector(".server__info");
+    container.innerHTML = "";
+    if (selected == null) {
+        container.innerHTML = "<p> No Server selected</p>";
+    } else {
+        let ip = `<p>Ip: <strong>${selected.ipAdress}</strong></p> <p>Websites: </p>`;
+        let sites = document.createElement("ul");
+        for (const site of selected.sites) {
+            let temp = document.createElement("li");
+            temp.textContent = site;
+            sites.appendChild(temp);
+        }
+        container.innerHTML = ip;
+        container.appendChild(sites);
+    }
+}
+
 const newLink = () => {
     let startServer = document.getElementById("start").value;
     let endServer = document.getElementById("end").value;
@@ -50,11 +68,15 @@ cy.on('tap', function (e) {
 
     if (evtTarget !== cy) {
         // TODO : Handle when do not click on empty area
-        let selected = servers.filter((server) => server.id == evtTarget.id())[0];
+        selected = servers.filter((server) => server.ipAdress == evtTarget.id())[0];
+        console.log(servers);
         console.log(selected);
+        updateServerInformation();
     } else {
         cy.elements().unselect();
+        selected = null;
         updateNewServerForm(e.position);
+        updateServerInformation();
     }
 });
 
@@ -67,4 +89,4 @@ startServer.addEventListener("change", (e) => {
     if (dropDown.value != null) {
         
     } 
-})
+});
