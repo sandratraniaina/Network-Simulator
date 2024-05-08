@@ -44,8 +44,14 @@ header .form-container {
 }
 
 #server_info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 1.5rem;
     position: absolute;
     z-index: 2;
+    width: 300px;
     height: 50%;
     left: 4%;
     top: 28%;

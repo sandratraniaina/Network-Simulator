@@ -1,9 +1,8 @@
 let buttons = document.querySelectorAll(".btn");
 let forms = document.querySelectorAll("form");
 
-let findBtn = buttons[0];
-let addBtn = buttons[1];
-let linkBtn = buttons[2];
+let findBtn = buttons[0], addBtn = buttons[1], linkBtn = buttons[2];
+let deleteBtn = document.getElementById("delete_btn");
 
 const updateNewServerForm = (position) => {
     document.getElementById("x").value = position.x;
