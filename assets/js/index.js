@@ -36,33 +36,29 @@ const isLinked = (sourceNode, targetNode) => {
     return edges.length > 0;
 }
 
-const newLink = () => {
-    let startServer = document.getElementById("start").value;
-    let endServer = document.getElementById("end").value;
-    let ping = document.getElementById("ping").value;
-
-    if (isLinked(startServer, endServer)) {
+const newLink = (source, target, ping) => {
+    if (isLinked(source, target)) {
         alert("Those nodes are already linked");
         return;
-    } else if (startServer == endServer) {
+    } else if (source == target) {
         alert("Cannot link to itsself");
         return;
     }
 
     let newLink = {
         group: 'edges',
-        data: { id: edges.length, source: startServer, target: endServer, weight: ping }
+        data: { id: edges.length, source: source, target: target, weight: ping }
     };
 
-    let source = getServer(startServer);
-    let target = getServer(endServer);
+    let sourceNode = getServer(source);
+    let targetNode = getServer(target);
 
-    source.connections.push({
-        node: target,
+    sourceNode.connections.push({
+        node: targetNode,
         latency: parseInt(ping)
     });
-    target.connections.push({
-        node: source,
+    targetNode.connections.push({
+        node: sourceNode,
         latency: parseInt(ping)
     });
 
@@ -158,7 +154,16 @@ try {
     });
     
     linkBtn.addEventListener("click", () => {
-        newLink();
+        if (!checkForm("link_form")) {
+            alert("Fill up all data");
+            return;
+        }
+
+        let source = document.getElementById("start").value;
+        let target = document.getElementById("end").value;
+        let ping = document.getElementById("ping").value;
+
+        newLink(source, target, ping);
     });
     
     deleteBtn.addEventListener("click", (e) => {
