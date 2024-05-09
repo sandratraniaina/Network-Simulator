@@ -117,9 +117,17 @@ const newServer = (server) => {
 const deleteNode = (node = selected) => {
     if (node != null) {
         cy.remove(`node[id = "${node.ip}"]`);
+
         servers = servers.filter((server) => {
             return server.ip != node.ip
         });
+
+        servers.forEach((server) => {
+            server.connections = server.connections.filter((connection) => {
+                return connection.node.ip != node.ip;
+            });
+        })
+
         selected = null;
         updateServerInformation(selected);
         updateDropDown("start", basicServerInfo());
@@ -146,10 +154,7 @@ cy.on('tap', function (e) {
         updateServerInformation(selected);
     } else {
         cy.elements().unselect();
-        selected = {
-            ip: "No selected server",
-            websites: []
-        };
+        selected = null;
         updateNewServerForm(e.position);
         updateServerInformation(selected);
     }
