@@ -77,15 +77,7 @@ const basicServerInfo = () => {
     });
 }
 
-const newServer = () => {
-    let x = document.getElementById("x").value;
-    let ip = document.getElementById("ip_adress").value;
-    let y = document.getElementById("y").value;
-    let webSites = document.getElementById("websites").value.split(";");
-    if (x == null || y == null || webSites == null || ip == "") {
-        alert("Input all data");
-        return;
-    }
+const newServer = (x, y, ip, webSites) => {
     let newServer = {
         group: "nodes",
         data: { id: `${ip}` },
@@ -124,7 +116,7 @@ const deleteNode = () => {
 try {
     cy.on('tap', function (e) {
         var evtTarget = e.target;
-    
+
         if (evtTarget !== cy) {
             // TODO : Handle when do not click on empty area
             selected = servers.filter((server) => server.ip == evtTarget.id())[0];
@@ -141,18 +133,27 @@ try {
             updateServerInformation(selected);
         }
     });
-    
+
     addBtn.addEventListener("click", () => {
-        newServer();
+        let x = document.getElementById("x").value;
+        let ip = document.getElementById("ip_adress").value;
+        let y = document.getElementById("y").value;
+        let webSites = document.getElementById("websites").value.split(";");
+        if (x == null || y == null || webSites == null || ip == "") {
+            alert("Input all data");
+            return;
+        }
+
+        newServer(x, y, ip, webSites);
     });
-    
+
     startServer.addEventListener("change", (e) => {
         let dropDown = e.target;
         if (dropDown.value != null) {
-    
+
         }
     });
-    
+
     linkBtn.addEventListener("click", () => {
         if (!checkForm("link_form")) {
             alert("Fill up all data");
@@ -165,7 +166,7 @@ try {
 
         newLink(source, target, ping);
     });
-    
+
     deleteBtn.addEventListener("click", (e) => {
         e.preventDefault();
         deleteNode();
