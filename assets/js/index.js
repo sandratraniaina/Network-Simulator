@@ -97,17 +97,17 @@ const newServer = (x, y, ip, webSites) => {
     updateDropDown("end", serversInfo);
 }
 
-const deleteNode = () => {
-    if (selected != null) {
-        cy.remove(`node[id = "${selected.ip}"]`);
+const deleteNode = (node = selected) => {
+    if (node != null) {
+        cy.remove(`node[id = "${node.ip}"]`);
         servers = servers.filter((server) => {
-            return server.ip != selected.ip
+            return server.ip != node.ip
         });
         selected = {
-            ip: "No selected server",
+            ip: "No node server",
             websites: []
         };
-        updateServerInformation();
+        updateServerInformation(selected);
         updateDropDown("start", basicServerInfo());
         updateDropDown("end", basicServerInfo());
     }
