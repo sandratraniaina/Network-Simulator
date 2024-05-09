@@ -22,7 +22,7 @@ const updateServerInformation = () => {
 
     ip.textContent = selected.ip;
 
-    for (const s of selected.sites) {
+    for (const s of selected.websites) {
         let li = document.createElement("li");
         li.textContent = s;
         site.appendChild(li);
@@ -92,7 +92,7 @@ const newServer = () => {
             y: parseInt(y)
         },
         ip: ip,
-        sites: webSites,
+        websites: webSites,
         connections: []
     };
     cy.add(newServer);
@@ -111,7 +111,7 @@ const deleteNode = () => {
         });
         selected = {
             ip: "No selected server",
-            sites: []
+            websites: []
         };
         updateServerInformation();
         updateDropDown("start", basicServerInfo());
@@ -133,7 +133,7 @@ try {
             cy.elements().unselect();
             selected = {
                 ip: "No selected server",
-                sites: []
+                websites: []
             };
             updateNewServerForm(e.position);
             updateServerInformation();
