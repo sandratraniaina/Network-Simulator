@@ -1,4 +1,23 @@
-function findShortestPath(startNode, website) {
+let searchBtn = document.getElementById("search_btn");
+let refreshBtn = document.getElementById("refresh_btn");
+
+const refreshUI = () => {
+
+}
+
+const search = () => {
+
+}
+
+searchBtn.addEventListener("click", () => {
+    search();
+})
+
+refreshBtn.addEventListener("click", () => {
+
+});
+ 
+const findShortestPath = (startNode, website) => {
     let distances = {};
     let previousNodes = {};
     let unvisitedNodes = new Set();
