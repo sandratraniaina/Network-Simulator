@@ -9,7 +9,7 @@ let selected;
 
 const getServer = (ip) => {
     return servers.filter((server) => {
-        return server.ipAdress == ip;
+        return server.ip == ip;
     })[0];
 };
 
@@ -20,7 +20,7 @@ const updateServerInformation = () => {
     ip.innerHTML = "";
     site.innerHTML = "";
 
-    ip.textContent = selected.ipAdress;
+    ip.textContent = selected.ip;
 
     for (const s of selected.sites) {
         let li = document.createElement("li");
@@ -69,29 +69,29 @@ const newLink = () => {
 const basicServerInfo = () => {
     return servers.map((server, index) => {
         return {
-            value: server.ipAdress,
-            text: server.ipAdress
+            value: server.ip,
+            text: server.ip
         }
     });
 }
 
 const newServer = () => {
     let x = document.getElementById("x").value;
-    let ipAdress = document.getElementById("ip_adress").value;
+    let ip = document.getElementById("ip_adress").value;
     let y = document.getElementById("y").value;
     let webSites = document.getElementById("websites").value.split(";");
-    if (x == null || y == null || webSites == null || ipAdress == "") {
+    if (x == null || y == null || webSites == null || ip == "") {
         alert("Input all data");
         return;
     }
     let newServer = {
         group: "nodes",
-        data: { id: `${ipAdress}` },
+        data: { id: `${ip}` },
         position: {
             x: parseInt(x),
             y: parseInt(y)
         },
-        ipAdress: ipAdress,
+        ip: ip,
         sites: webSites,
         connections: []
     };
@@ -105,12 +105,12 @@ const newServer = () => {
 
 const deleteNode = () => {
     if (selected != null) {
-        cy.remove(`node[id = "${selected.ipAdress}"]`);
+        cy.remove(`node[id = "${selected.ip}"]`);
         servers = servers.filter((server) => {
-            return server.ipAdress != selected.ipAdress
+            return server.ip != selected.ip
         });
         selected = {
-            ipAdress: "No selected server",
+            ip: "No selected server",
             sites: []
         };
         updateServerInformation();
@@ -125,14 +125,14 @@ try {
     
         if (evtTarget !== cy) {
             // TODO : Handle when do not click on empty area
-            selected = servers.filter((server) => server.ipAdress == evtTarget.id())[0];
+            selected = servers.filter((server) => server.ip == evtTarget.id())[0];
             console.log(servers);
             console.log(selected);
             updateServerInformation();
         } else {
             cy.elements().unselect();
             selected = {
-                ipAdress: "No selected server",
+                ip: "No selected server",
                 sites: []
             };
             updateNewServerForm(e.position);
