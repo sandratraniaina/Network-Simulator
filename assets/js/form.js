@@ -3,6 +3,7 @@ let forms = document.querySelectorAll("form");
 
 let findBtn = buttons[0], addBtn = buttons[2], linkBtn = buttons[3];
 let deleteBtn = document.getElementById("delete_btn");
+let powerOffBtn = document.getElementById("power-off_btn");
 
 const updateNewServerForm = (position) => {
     document.getElementById("x").value = position.x;

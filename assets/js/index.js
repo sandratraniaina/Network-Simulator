@@ -27,7 +27,11 @@ const updateServerInformation = (node = selected) => {
         li.textContent = s;
         site.appendChild(li);
     }
-
+    if ((selected != null && selected != undefined && selected.isOn) || selected == null) {
+        powerOffBtn.classList.add("disabled");
+    } else { 
+        powerOffBtn.classList.remove("disabled");
+    }
 }
 
 const isLinked = (sourceNode, targetNode) => {
@@ -49,7 +53,7 @@ const newLink = (source, target, ping) => {
     let newLink = {
         group: 'edges',
         data: { id: linkId, source: source, target: target, weight: ping }
-    };  
+    };
 
     let sourceNode = getServer(source);
     let targetNode = getServer(target);
@@ -90,7 +94,8 @@ const getServerObject = (x, y, ip, webSites) => {
         },
         ip: ip,
         websites: webSites,
-        connections: []
+        connections: [],
+        isOn: true
     };
 }
 
@@ -127,66 +132,67 @@ const loadData = (data) => {
     }
 }
 
-try {
-    cy.on('tap', function (e) {
-        var evtTarget = e.target;
+cy.on('tap', function (e) {
+    var evtTarget = e.target;
 
-        if (evtTarget !== cy) {
-            // TODO : Handle when do not click on empty area
-            selected = servers.filter((server) => server.ip == evtTarget.id())[0];
-            console.log(servers);
-            console.log(selected);
-            updateServerInformation(selected);
-        } else {
-            cy.elements().unselect();
-            selected = {
-                ip: "No selected server",
-                websites: []
-            };
-            updateNewServerForm(e.position);
-            updateServerInformation(selected);
-        }
-    });
+    if (evtTarget !== cy) {
+        // TODO : Handle when do not click on empty area
+        selected = servers.filter((server) => server.ip == evtTarget.id())[0];
+        console.log(servers);
+        console.log(selected);
+        updateServerInformation(selected);
+    } else {
+        cy.elements().unselect();
+        selected = {
+            ip: "No selected server",
+            websites: []
+        };
+        updateNewServerForm(e.position);
+        updateServerInformation(selected);
+    }
+});
 
-    addBtn.addEventListener("click", () => {
-        let x = document.getElementById("x").value;
-        let ip = document.getElementById("ip_adress").value;
-        let y = document.getElementById("y").value;
-        let webSites = document.getElementById("websites").value.split(";");
-        if (x == null || y == null || webSites == null || ip == "") {
-            alert("Input all data");
-            return;
-        }
+addBtn.addEventListener("click", () => {
+    let x = document.getElementById("x").value;
+    let ip = document.getElementById("ip_adress").value;
+    let y = document.getElementById("y").value;
+    let webSites = document.getElementById("websites").value.split(";");
+    if (x == null || y == null || webSites == null || ip == "") {
+        alert("Input all data");
+        return;
+    }
 
-        let server = getServerObject(x, y, ip, webSites);
+    let server = getServerObject(x, y, ip, webSites);
 
-        newServer(server);
-    });
+    newServer(server);
+});
 
-    startServer.addEventListener("change", (e) => {
-        let dropDown = e.target;
-        if (dropDown.value != null) {
+linkBtn.addEventListener("click", (e) => {
+    e.preventDefault();
 
-        }
-    });
+    if (!checkForm("link_form")) {
+        alert("Fill up all data");
+        return;
+    }
 
-    linkBtn.addEventListener("click", () => {
-        if (!checkForm("link_form")) {
-            alert("Fill up all data");
-            return;
-        }
+    let source = document.getElementById("start").value;
+    let target = document.getElementById("end").value;
+    let ping = document.getElementById("ping").value;
 
-        let source = document.getElementById("start").value;
-        let target = document.getElementById("end").value;
-        let ping = document.getElementById("ping").value;
+    newLink(source, target, ping);
+});
 
-        newLink(source, target, ping);
-    });
+deleteBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    deleteNode();
+});
 
-    deleteBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        deleteNode();
-    })
-} catch (error) {
-    alert(error);
-}
+powerOffBtn.addEventListener("click" , (e) => {
+    e.preventDefault();
+
+    if (selected != null && selected != undefined) {
+        cy.getElementById(selected.ip).toggleClass("off");
+        powerOffBtn.classList.toggle("disabled");
+        selected.isOn = !selected.isOn;
+    }
+});
