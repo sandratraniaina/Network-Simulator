@@ -35,6 +35,10 @@ const search = (website) => {
         let onNode = getOnServer(servers);
 
         let path = findShortestPath(selected, website, onNode);
+        if (path == null) {
+            alert("No path found");
+            return ;
+        }
         let edges = getEdgeId(path);
 
         path.forEach((server) => {
@@ -63,7 +67,8 @@ searchBtn.addEventListener("click", () => {
 refreshBtn.addEventListener("click", () => {
     refreshUI();
 });
- 
+
+
 const findShortestPath = (startNode, website, servers) => {
     let distances = {};
     let previousNodes = {};
@@ -80,12 +85,18 @@ const findShortestPath = (startNode, website, servers) => {
         let currentNode = Array.from(unvisitedNodes).reduce((a, b) => distances[a.ip] < distances[b.ip] ? a : b);
 
         if (currentNode.websites.includes(website)) {
+            let temp = currentNode;
             let path = [];
             while (currentNode !== null) {
                 path.unshift(currentNode);
                 currentNode = previousNodes[currentNode.ip];
             }
-            return path;
+            if (path[0] != null && path[0] == startNode) {
+                return path;
+            } else {
+                unvisitedNodes.delete(temp);
+                continue;
+            }
         }
 
         unvisitedNodes.delete(currentNode);
