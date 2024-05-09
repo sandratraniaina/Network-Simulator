@@ -13,16 +13,16 @@ const getServer = (ip) => {
     })[0];
 };
 
-const updateServerInformation = () => {
+const updateServerInformation = (node = selected) => {
     let ip = document.querySelector(".info__ip-adress");
     let site = document.querySelector(".info_websites");
 
     ip.innerHTML = "";
     site.innerHTML = "";
 
-    ip.textContent = selected.ip;
+    ip.textContent = node.ip;
 
-    for (const s of selected.websites) {
+    for (const s of node.websites) {
         let li = document.createElement("li");
         li.textContent = s;
         site.appendChild(li);
@@ -138,7 +138,7 @@ try {
                 websites: []
             };
             updateNewServerForm(e.position);
-            updateServerInformation();
+            updateServerInformation(selected);
         }
     });
     
