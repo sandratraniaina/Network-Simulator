@@ -5,16 +5,21 @@ const refreshUI = () => {
 
 }
 
-const search = () => {
-
+const search = (website) => {
+    if (selected.websites.length > 0) {
+        let path = findShortestPath(website);
+    }
 }
 
 searchBtn.addEventListener("click", () => {
-    search();
+    let url = document.getElementById("url").value;
+    if (url != "" && url != null) {
+        search(website);
+    }
 })
 
 refreshBtn.addEventListener("click", () => {
-
+    refreshUI();
 });
  
 const findShortestPath = (startNode, website) => {
