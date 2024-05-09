@@ -4,9 +4,14 @@ let startServer = document.getElementById("start");
 
 let servers = [];
 let edges = [];
-let links = [];
 
 let selected;
+
+const getServer = (ip) => {
+    return servers.filter((server) => {
+        return server.ipAdress == ip;
+    })[0];
+};
 
 const updateServerInformation = () => {
     let ip = document.querySelector(".info__ip-adress");
@@ -30,7 +35,6 @@ const isLinked = (sourceNode, targetNode) => {
         .union(cy.edges("[source='" + targetNode + "'][target='" + sourceNode + "']"));
     return edges.length > 0;
 }
-
 
 const newLink = () => {
     let startServer = document.getElementById("start").value;
