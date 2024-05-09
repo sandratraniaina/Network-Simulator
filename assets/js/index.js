@@ -45,21 +45,24 @@ const newLink = (source, target, ping) => {
         return;
     }
 
+    let linkId = edges.length;
     let newLink = {
         group: 'edges',
-        data: { id: edges.length, source: source, target: target, weight: ping }
-    };
+        data: { id: linkId, source: source, target: target, weight: ping }
+    };  
 
     let sourceNode = getServer(source);
     let targetNode = getServer(target);
 
     sourceNode.connections.push({
         node: targetNode,
-        latency: parseInt(ping)
+        latency: parseInt(ping),
+        id: linkId
     });
     targetNode.connections.push({
         node: sourceNode,
-        latency: parseInt(ping)
+        latency: parseInt(ping),
+        id: linkId
     });
 
     console.log(servers);

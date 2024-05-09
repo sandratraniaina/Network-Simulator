@@ -15,13 +15,28 @@ const refreshUI = () => {
     });
 }
 
+const getEdgeId = (path) => {
+    let ids = [];
+    path.forEach((way) => {
+        ids.push(way.connections.map((connection) => connection.id));
+    });
+    return Array.from(new Set(ids.flat()));
+};
+
 const search = (website) => {
+    refreshUI();
     if (selected.websites.length > 0) {
         let path = findShortestPath(selected, website);
+        let edges = getEdgeId(path);
 
         path.forEach((server) => {
             cy.getElementById(server.ip).addClass("path");
         });
+
+        edges.forEach((edge) => {
+            let temp = cy.getElementById(edge);
+            temp.addClass("path");
+        })
     }
 }
 
