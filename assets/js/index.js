@@ -57,8 +57,14 @@ const newLink = () => {
     let source = getServer(startServer);
     let target = getServer(endServer);
 
-    source.connections.push(target);
-    target.connections.push(source);
+    source.connections.push({
+        node: target,
+        latency: parseInt(ping)
+    });
+    target.connections.push({
+        node: source,
+        latency: parseInt(ping)
+    });
 
     console.log(servers);
 
