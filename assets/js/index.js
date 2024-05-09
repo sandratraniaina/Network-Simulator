@@ -54,6 +54,14 @@ const newLink = () => {
         data: { id: edges.length, source: startServer, target: endServer, weight: ping }
     };
 
+    let source = getServer(startServer);
+    let target = getServer(endServer);
+
+    source.connections.push(target);
+    target.connections.push(source);
+
+    console.log(servers);
+
     edges.push(newLink);
     cy.add(newLink);
 }
@@ -84,7 +92,8 @@ const newServer = () => {
             y: parseInt(y)
         },
         ipAdress: ipAdress,
-        sites: webSites
+        sites: webSites,
+        connections: []
     };
     cy.add(newServer);
     servers.push(newServer);
