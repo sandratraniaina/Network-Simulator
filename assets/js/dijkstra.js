@@ -23,10 +23,18 @@ const getEdgeId = (path) => {
     return Array.from(new Set(ids.flat()));
 };
 
+const getOnServer = (nodes = servers) => {
+    return nodes.filter((node) => {
+        return node.isOn;
+    })
+}
+
 const search = (website) => {
     refreshUI();
     if (selected.websites.length > 0) {
-        let path = findShortestPath(selected, website);
+        let onNode = getOnServer(servers);
+
+        let path = findShortestPath(selected, website, onNode);
         let edges = getEdgeId(path);
 
         path.forEach((server) => {
@@ -51,7 +59,7 @@ refreshBtn.addEventListener("click", () => {
     refreshUI();
 });
  
-const findShortestPath = (startNode, website) => {
+const findShortestPath = (startNode, website, servers) => {
     let distances = {};
     let previousNodes = {};
     let unvisitedNodes = new Set();
