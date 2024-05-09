@@ -2,19 +2,33 @@ let searchBtn = document.getElementById("search_btn");
 let refreshBtn = document.getElementById("refresh_btn");
 
 const refreshUI = () => {
+    let nodes = cy.elements("node");
 
+    nodes.forEach((node) => {
+        node.removeClass("path");
+    });
+
+    let edges = cy.elements("edge");
+
+    edges.forEach((edge) => {
+        edge.removeClass("path");
+    });
 }
 
 const search = (website) => {
     if (selected.websites.length > 0) {
-        let path = findShortestPath(website);
+        let path = findShortestPath(selected, website);
+
+        path.forEach((server) => {
+            cy.getElementById(server.ip).addClass("path");
+        });
     }
 }
 
 searchBtn.addEventListener("click", () => {
     let url = document.getElementById("url").value;
     if (url != "" && url != null) {
-        search(website);
+        search(url);
     }
 })
 
