@@ -25,10 +25,25 @@ const updateServerInformation = () => {
 
 }
 
+const isLinked = (sourceNode, targetNode) => {
+    var edges = cy.edges("[source='" + sourceNode + "'][target='" + targetNode + "']")
+        .union(cy.edges("[source='" + targetNode + "'][target='" + sourceNode + "']"));
+    return edges.length > 0;
+}
+
+
 const newLink = () => {
     let startServer = document.getElementById("start").value;
     let endServer = document.getElementById("end").value;
     let ping = document.getElementById("ping").value;
+
+    if (isLinked(startServer, endServer)) {
+        alert("Those nodes are already linked");
+        return;
+    } else if (startServer == endServer) {
+        alert("Cannot link to itsself");
+        return;
+    }
 
     let newLink = {
         group: 'edges',
@@ -132,5 +147,5 @@ try {
         deleteNode();
     })
 } catch (error) {
-    alert(error)
+    alert(error);
 }
