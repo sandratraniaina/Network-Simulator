@@ -17,9 +17,11 @@ const refreshUI = () => {
 
 const getEdgeId = (path) => {
     let ids = [];
-    path.forEach((way) => {
-        ids.push(way.connections.map((connection) => connection.id));
-    });
+    for (let index = 1; index < path.length; index++) {
+        const element = path[index - 1];
+        let temp = path[index].connections.filter((connection) => connection.node.ip == element.ip);
+        ids.push(temp.map((connection) => connection.id));
+    }
     return Array.from(new Set(ids.flat()));
 };
 
@@ -87,9 +89,13 @@ const findShortestPath = (startNode, website, servers) => {
         if (currentNode.websites.includes(website)) {
             let temp = currentNode;
             let path = [];
+
             while (currentNode !== null) {
+                let previousNode = previousNodes[currentNode.ip];
+
                 path.unshift(currentNode);
-                currentNode = previousNodes[currentNode.ip];
+
+                currentNode = previousNode;
             }
             if (path[0] != null && path[0] == startNode) {
                 return path;
