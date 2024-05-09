@@ -31,7 +31,7 @@ const getOnServer = (nodes = servers) => {
 
 const search = (website) => {
     refreshUI();
-    if (selected.websites.length > 0) {
+    if (selected != null) {
         let onNode = getOnServer(servers);
 
         let path = findShortestPath(selected, website, onNode);
@@ -45,6 +45,9 @@ const search = (website) => {
             let temp = cy.getElementById(edge);
             temp.addClass("path");
         })
+    } else {
+        alert("Please, choose one starting point");
+        return;
     }
 }
 
@@ -52,6 +55,8 @@ searchBtn.addEventListener("click", () => {
     let url = document.getElementById("url").value;
     if (url != "" && url != null) {
         search(url);
+    } else {
+        alert("Fill up search bar");
     }
 })
 

@@ -14,6 +14,12 @@ const getServer = (ip) => {
 };
 
 const updateServerInformation = (node = selected) => {
+    if (node == null) {
+        node = {
+            ip: "No node server",
+            websites: []
+        };
+    }
     let ip = document.querySelector(".info__ip-adress");
     let site = document.querySelector(".info_websites");
 
@@ -114,10 +120,7 @@ const deleteNode = (node = selected) => {
         servers = servers.filter((server) => {
             return server.ip != node.ip
         });
-        selected = {
-            ip: "No node server",
-            websites: []
-        };
+        selected = null;
         updateServerInformation(selected);
         updateDropDown("start", basicServerInfo());
         updateDropDown("end", basicServerInfo());
