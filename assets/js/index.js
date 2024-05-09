@@ -2,8 +2,8 @@ let container = document.getElementById("cy");
 
 let startServer = document.getElementById("start");
 
-let servers = [];
 let edges = [];
+let servers = [];
 
 let selected;
 
@@ -77,8 +77,8 @@ const basicServerInfo = () => {
     });
 }
 
-const newServer = (x, y, ip, webSites) => {
-    let newServer = {
+const getServerObject = (x, y, ip, webSites) => {
+    return {
         group: "nodes",
         data: { id: `${ip}` },
         position: {
@@ -89,8 +89,11 @@ const newServer = (x, y, ip, webSites) => {
         websites: webSites,
         connections: []
     };
-    cy.add(newServer);
-    servers.push(newServer);
+}
+
+const newServer = (server) => {
+    cy.add(server);
+    servers.push(server);
     resetForm(1);
     let serversInfo = basicServerInfo();
     updateDropDown("start", serversInfo);
@@ -113,6 +116,14 @@ const deleteNode = (node = selected) => {
     }
 }
 
+const loadData = (data) => {
+    for (const value of data) {
+        let temp = getServerObject(value.positions.x, value.positions.y, value.ip, value.websites);
+        console.log(temp);
+        newServer(temp);
+    }
+}
+
 try {
     cy.on('tap', function (e) {
         var evtTarget = e.target;
@@ -122,7 +133,7 @@ try {
             selected = servers.filter((server) => server.ip == evtTarget.id())[0];
             console.log(servers);
             console.log(selected);
-            updateServerInformation();
+            updateServerInformation(selected);
         } else {
             cy.elements().unselect();
             selected = {
@@ -144,7 +155,9 @@ try {
             return;
         }
 
-        newServer(x, y, ip, webSites);
+        let server = getServerObject(x, y, ip, webSites);
+
+        newServer(server);
     });
 
     startServer.addEventListener("change", (e) => {

@@ -101,10 +101,17 @@
     </div>
 
     <script src="node_modules/cytoscape/dist/cytoscape.min.js"></script>
+    <script src="assets/js/data.js"></script>
     <script src="assets/js/cytoscape.js"></script>
     <script src="assets/js/form.js"></script>
     <script src="assets/js/index.js"></script>
     <script src="assets/js/dijkstra.js"></script>
+
+    <script>
+        window.onload = () => {
+            loadData(data);
+        }
+    </script>
 </body>
 
 </html>
