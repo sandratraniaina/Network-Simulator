@@ -37,7 +37,7 @@ const search = (website) => {
         let onNode = getOnServer(servers);
 
         let bfs = document.getElementById("bfs");
-        let path = bfs.checked ? findShortestPath(selected, website, onNode) : findShortestPathBFS(selected, website);
+        let path = !bfs.checked ? findShortestPath(selected, website, onNode) : findShortestPathBFS(selected, website);
         if (path == null) {
             alert("No path found");
             return;

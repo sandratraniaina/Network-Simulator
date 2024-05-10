@@ -33,7 +33,10 @@
                         <div class="form__input-group horizontal">
                             <button type="button" class="form__submit btn disabled" id="refresh_btn"><i class="fa fa-refresh"></i></button>
                         </div>
-                        <input type="checkbox" name="bsf" id="bfs">
+                        <div class="form__input-group horizontal">
+                            <label for="bfs" class="form__label">Bfs: </label>
+                            <input type="checkbox" name="bsf" id="bfs" class="form__input-field">
+                        </div>
                     </div>
                 </form>
                 <form action="" class="form">
@@ -90,6 +93,7 @@
         <form action="" class="form" id="server_info-container">
             <div class="form__content">
                 <h3 class="form__title">Server Information</h3>
+                <hr>
                 <span class="">Ip : <strong class="info__ip-adress">No server selected</strong></span> <br>
                 <span class="">Websites :</span>
                 <ul class="info_websites">
