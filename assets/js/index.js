@@ -1,5 +1,4 @@
 let container = document.getElementById("cy");
-
 let startServer = document.getElementById("start");
 
 let edges = [];
@@ -41,7 +40,7 @@ const updateServerInformation = (node = selected) => {
     }
     if ((selected != null && selected != undefined && selected.isOn) || selected == null) {
         powerOffBtn.classList.add("disabled");
-    } else { 
+    } else {
         powerOffBtn.classList.remove("disabled");
     }
 }
@@ -197,10 +196,10 @@ cy.on('tap', function (e) {
             updateServerInformation(selected);
         }
     } else {
-            cy.elements().unselect();
-            selected = null;
-            updateNewServerForm(e.position);
-            updateServerInformation(selected);
+        cy.elements().unselect();
+        selected = null;
+        updateNewServerForm(e.position);
+        updateServerInformation(selected);
     }
 });
 
@@ -239,7 +238,7 @@ deleteBtn.addEventListener("click", (e) => {
     deleteNode();
 });
 
-powerOffBtn.addEventListener("click" , (e) => {
+powerOffBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
     if (selected != null && selected != undefined) {

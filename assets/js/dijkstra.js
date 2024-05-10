@@ -40,7 +40,7 @@ const search = (website) => {
         let path = bfs.checked ? findShortestPath(selected, website, onNode) : findShortestPathBFS(selected, website);
         if (path == null) {
             alert("No path found");
-            return ;
+            return;
         }
         console.log(path);
         let edges = getEdgeId(path);
@@ -97,9 +97,9 @@ const findShortestPathBFS = (startNode, website) => {
             if (!visitedNodes.has(connection.node.ip) && connection.node.isOn) {
                 visitedNodes.add(connection.node.ip);
                 previousNodes[connection.node.ip] = currentNode;
-                pathQueue.push({ 
-                    node: connection.node, 
-                    totalLatency: totalLatency + connection.latency 
+                pathQueue.push({
+                    node: connection.node,
+                    totalLatency: totalLatency + connection.latency
                 });
             }
         }
