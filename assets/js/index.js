@@ -48,8 +48,14 @@ const isLinked = (sourceNode, targetNode) => {
 
 const newLink = (source, target, ping) => {
     if (isLinked(source, target)) {
-        alert("Those nodes are already linked");
-        return;
+        let prompt = confirm("Do you want to update?");
+        if (prompt) {
+            removeLink(source, target);
+        } else {
+            alert("Those nodes are already linked");
+            return;
+        }
+
     } else if (source == target) {
         alert("Cannot link to itsself");
         return;
@@ -75,7 +81,10 @@ const newLink = (source, target, ping) => {
         id: linkId
     });
 
-    console.log(servers);
+    console.log("Source Node");
+    console.log(sourceNode);
+    console.log("Target Node");
+    console.log(targetNode);
 
     edges.push(newLink);
     cy.add(newLink);
@@ -87,6 +96,20 @@ const basicServerInfo = () => {
             value: server.ip,
             text: server.ip
         }
+    });
+}
+
+const removeLink = (source, target) => {
+    cy.remove(`edge[source="${source}"][target="${target}"]`);
+
+    let sourceNode = getServer(source);
+    let targetNode = getServer(target);
+
+    sourceNode.connections = sourceNode.connections.filter((connection) => {
+        connection.node.ip != target;
+    });
+    targetNode.connections = targetNode.connections.filter((connection) => {
+        connection.node.ip != source;
     });
 }
 
@@ -138,7 +161,6 @@ const deleteNode = (node = selected) => {
 const loadData = (data) => {
     for (const value of data) {
         let temp = getServerObject(value.positions.x, value.positions.y, value.ip, value.websites);
-        console.log(temp);
         newServer(temp);
     }
 }
