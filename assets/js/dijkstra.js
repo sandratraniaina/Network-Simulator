@@ -36,7 +36,7 @@ const search = (website) => {
     if (selected != null) {
         let onNode = getOnServer(servers);
 
-        let path = findShortestPath(selected, website, onNode);
+        let path = findShortestPathBFS(selected, website, onNode);
         if (path == null) {
             alert("No path found");
             return ;
@@ -69,6 +69,44 @@ searchBtn.addEventListener("click", () => {
 refreshBtn.addEventListener("click", () => {
     refreshUI();
 });
+
+const findShortestPathBFS = (startNode, website, servers) => {
+    let visitedNodes = new Set();
+    let previousNodes = {};
+    let pathQueue = [{ node: startNode, totalLatency: 0 }];
+
+    visitedNodes.add(startNode.ip);
+    previousNodes[startNode.ip] = null;
+
+    while (pathQueue.length > 0) {
+        pathQueue.sort((a, b) => a.totalLatency - b.totalLatency);
+        let { node: currentNode, totalLatency } = pathQueue.shift();
+
+        if (currentNode.websites.includes(website)) {
+            let path = [];
+            let temp = currentNode;
+
+            while (temp !== null) {
+                path.unshift(temp);
+                temp = previousNodes[temp.ip];
+            }
+            return path;
+        }
+        for (let connection of currentNode.connections) {
+            if (!visitedNodes.has(connection.node.ip) && connection.node.isOn) {
+                visitedNodes.add(connection.node.ip);
+                previousNodes[connection.node.ip] = currentNode;
+                pathQueue.push({ 
+                    node: connection.node, 
+                    totalLatency: totalLatency + connection.latency 
+                });
+            }
+        }
+    }
+
+    return null;
+};
+
 
 
 const findShortestPath = (startNode, website, servers) => {
