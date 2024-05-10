@@ -6,116 +6,13 @@ let servers = [];
 
 let selected, selectedEdge = null;
 
-const getServer = (ip) => {
-    return servers.filter((server) => {
-        return server.ip == ip;
-    })[0];
-};
-
-const getEdge = (id) => {
-    return edges.filter((edge) => {
-        return edge.data.id == id;
-    })[0];
-}
-
-const updateServerInformation = (node = selected) => {
-    if (node == null) {
-        node = {
-            ip: "No node server",
-            websites: []
-        };
-    }
-    let ip = document.querySelector(".info__ip-adress");
-    let site = document.querySelector(".info_websites");
-
-    ip.innerHTML = "";
-    site.innerHTML = "";
-
-    ip.textContent = node.ip;
-
-    for (const s of node.websites) {
-        let li = document.createElement("li");
-        li.textContent = s;
-        site.appendChild(li);
-    }
-    if ((selected != null && selected != undefined && selected.isOn) || selected == null) {
-        powerOffBtn.classList.add("disabled");
-    } else {
-        powerOffBtn.classList.remove("disabled");
-    }
-}
-
-const isLinked = (sourceNode, targetNode) => {
-    var edges = cy.edges("[source='" + sourceNode + "'][target='" + targetNode + "']")
-        .union(cy.edges("[source='" + targetNode + "'][target='" + sourceNode + "']"));
-    return edges.length > 0;
-}
-
-const newLink = (source, target, ping) => {
-    if (isLinked(source, target)) {
-        let prompt = confirm("Do you want to update?");
-        if (prompt) {
-            removeLink(source, target);
-        } else {
-            alert("Those nodes are already linked");
-            return;
-        }
-
-    } else if (source == target) {
-        alert("Cannot link to itsself");
-        return;
-    }
-
-    let linkId = edges.length;
-    let newLink = {
-        group: 'edges',
-        data: { id: linkId, source: source, target: target, weight: ping }
-    };
-
-    let sourceNode = getServer(source);
-    let targetNode = getServer(target);
-
-    sourceNode.connections.push({
-        node: targetNode,
-        latency: parseInt(ping),
-        id: linkId
-    });
-    targetNode.connections.push({
-        node: sourceNode,
-        latency: parseInt(ping),
-        id: linkId
-    });
-
-    edges.push(newLink);
-    cy.add(newLink);
-    console.log(newLink);
-}
-
+//Node and server functions
 const basicServerInfo = () => {
     return servers.map((server, index) => {
         return {
             value: server.ip,
             text: server.ip
         }
-    });
-}
-
-const removeLink = (source, target) => {
-    let edgeNode = cy.$(`edge[source="${source}"][target="${target}"]`);
-    cy.remove(edgeNode);
-
-    let sourceNode = getServer(source);
-    let targetNode = getServer(target);
-
-    sourceNode.connections = sourceNode.connections.filter((connection) => {
-        connection.node.ip != target;
-    });
-    targetNode.connections = targetNode.connections.filter((connection) => {
-        connection.node.ip != source;
-    });
-
-    edges = edges.filter((edge) => {
-        edge.data.id != edgeNode.id();
     });
 }
 
@@ -164,12 +61,111 @@ const deleteNode = (node = selected) => {
     }
 }
 
-const loadData = (data) => {
-    for (const value of data) {
-        let temp = getServerObject(value.positions.x, value.positions.y, value.ip, value.websites);
-        newServer(temp);
+const getServer = (ip) => {
+    return servers.filter((server) => {
+        return server.ip == ip;
+    })[0];
+};
+
+const updateServerInformation = (node = selected) => {
+    if (node == null) {
+        node = {
+            ip: "No node server",
+            websites: []
+        };
+    }
+    let ip = document.querySelector(".info__ip-adress");
+    let site = document.querySelector(".info_websites");
+
+    ip.innerHTML = "";
+    site.innerHTML = "";
+
+    ip.textContent = node.ip;
+
+    for (const s of node.websites) {
+        let li = document.createElement("li");
+        li.textContent = s;
+        site.appendChild(li);
+    }
+    if ((selected != null && selected != undefined && selected.isOn) || selected == null) {
+        powerOffBtn.classList.add("disabled");
+    } else {
+        powerOffBtn.classList.remove("disabled");
     }
 }
+
+// Edges and server link functions
+const getEdge = (id) => {
+    return edges.filter((edge) => {
+        return edge.data.id == id;
+    })[0];
+}
+
+const isLinked = (sourceNode, targetNode) => {
+    var edges = cy.edges("[source='" + sourceNode + "'][target='" + targetNode + "']")
+        .union(cy.edges("[source='" + targetNode + "'][target='" + sourceNode + "']"));
+    return edges.length > 0;
+}
+
+const newLink = (source, target, ping) => {
+    if (isLinked(source, target)) {
+        let prompt = confirm("Do you want to update?");
+        if (prompt) {
+            removeLink(source, target);
+        } else {
+            alert("Those nodes are already linked");
+            return;
+        }
+
+    } else if (source == target) {
+        alert("Cannot link to itsself");
+        return;
+    }
+
+    let linkId = edges.length;
+    let newLink = {
+        group: 'edges',
+        data: { id: linkId, source: source, target: target, weight: ping }
+    };
+
+    let sourceNode = getServer(source);
+    let targetNode = getServer(target);
+
+    sourceNode.connections.push({
+        node: targetNode,
+        latency: parseInt(ping),
+        id: linkId
+    });
+    targetNode.connections.push({
+        node: sourceNode,
+        latency: parseInt(ping),
+        id: linkId
+    });
+
+    edges.push(newLink);
+    cy.add(newLink);
+    console.log(newLink);
+}
+
+const removeLink = (source, target) => {
+    let edgeNode = cy.$(`edge[source="${source}"][target="${target}"]`);
+    cy.remove(edgeNode);
+
+    let sourceNode = getServer(source);
+    let targetNode = getServer(target);
+
+    sourceNode.connections = sourceNode.connections.filter((connection) => {
+        connection.node.ip != target;
+    });
+    targetNode.connections = targetNode.connections.filter((connection) => {
+        connection.node.ip != source;
+    });
+
+    edges = edges.filter((edge) => {
+        edge.data.id != edgeNode.id();
+    });
+}
+
 
 const handleEdge = (e) => {
     let edge = e.target;
@@ -184,6 +180,15 @@ const handleEdge = (e) => {
     }
 };
 
+//Load default data
+const loadData = (data) => {
+    for (const value of data) {
+        let temp = getServerObject(value.positions.x, value.positions.y, value.ip, value.websites);
+        newServer(temp);
+    }
+}
+
+// Listener
 cy.on('tap', function (e) {
     var evtTarget = e.target;
 

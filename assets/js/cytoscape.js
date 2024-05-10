@@ -1,3 +1,4 @@
+// Cytoscape canvas configuration
 const cy = cytoscape({
     container: document.getElementById('cy'),
     elements: [],

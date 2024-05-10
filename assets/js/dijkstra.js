@@ -1,6 +1,7 @@
 let searchBtn = document.getElementById("search_btn");
 let refreshBtn = document.getElementById("refresh_btn");
 
+// Helplers functions
 const refreshUI = () => {
     let nodes = cy.elements("node");
 
@@ -59,19 +60,7 @@ const search = (website) => {
     }
 }
 
-searchBtn.addEventListener("click", () => {
-    let url = document.getElementById("url").value;
-    if (url != "" && url != null) {
-        search(url);
-    } else {
-        alert("Fill up search bar");
-    }
-})
-
-refreshBtn.addEventListener("click", () => {
-    refreshUI();
-});
-
+// Path finding algorithm
 const findShortestPathBFS = (startNode, website) => {
     let visitedNodes = new Set();
     let previousNodes = {};
@@ -155,3 +144,17 @@ const findShortestPath = (startNode, website, servers) => {
 
     return null;
 }
+
+// Listeners
+searchBtn.addEventListener("click", () => {
+    let url = document.getElementById("url").value;
+    if (url != "" && url != null) {
+        search(url);
+    } else {
+        alert("Fill up search bar");
+    }
+})
+
+refreshBtn.addEventListener("click", () => {
+    refreshUI();
+});
