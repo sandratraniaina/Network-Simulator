@@ -5,13 +5,19 @@ let startServer = document.getElementById("start");
 let edges = [];
 let servers = [];
 
-let selected;
+let selected, selectedEdge = null;
 
 const getServer = (ip) => {
     return servers.filter((server) => {
         return server.ip == ip;
     })[0];
 };
+
+const getEdge = (id) => {
+    return edges.filter((edge) => {
+        return edge.data.id == id;
+    })[0];
+}
 
 const updateServerInformation = (node = selected) => {
     if (node == null) {
@@ -81,11 +87,6 @@ const newLink = (source, target, ping) => {
         id: linkId
     });
 
-    console.log("Source Node");
-    console.log(sourceNode);
-    console.log("Target Node");
-    console.log(targetNode);
-
     edges.push(newLink);
     cy.add(newLink);
 }
@@ -100,7 +101,8 @@ const basicServerInfo = () => {
 }
 
 const removeLink = (source, target) => {
-    cy.remove(`edge[source="${source}"][target="${target}"]`);
+    let edgeNode = cy.$(`edge[source="${source}"][target="${target}"]`);
+    cy.remove(edgeNode);
 
     let sourceNode = getServer(source);
     let targetNode = getServer(target);
@@ -110,6 +112,10 @@ const removeLink = (source, target) => {
     });
     targetNode.connections = targetNode.connections.filter((connection) => {
         connection.node.ip != source;
+    });
+
+    edges = edges.filter((edge) => {
+        edge.data.id != edgeNode.id();
     });
 }
 
@@ -165,20 +171,35 @@ const loadData = (data) => {
     }
 }
 
+const handleEdge = (e) => {
+    let edge = e.target;
+    if (selectedEdge != null && edge.id() == selectedEdge.data.id) {
+        let conf = confirm("Do you want to delete this edge");
+        if (conf) {
+            removeLink(selectedEdge.data.source, selectedEdge.data.target);
+            selectedEdge = null;
+        }
+    } else {
+        selectedEdge = getEdge(edge.id());
+    }
+};
+
 cy.on('tap', function (e) {
     var evtTarget = e.target;
 
     if (evtTarget !== cy) {
-        // TODO : Handle when do not click on empty area
-        selected = servers.filter((server) => server.ip == evtTarget.id())[0];
-        console.log(servers);
-        console.log(selected);
-        updateServerInformation(selected);
+        if (evtTarget.isEdge()) {
+            console.log("Its an edge");
+            handleEdge(e);
+        } else {
+            selected = servers.filter((server) => server.ip == evtTarget.id())[0];
+            updateServerInformation(selected);
+        }
     } else {
-        cy.elements().unselect();
-        selected = null;
-        updateNewServerForm(e.position);
-        updateServerInformation(selected);
+            cy.elements().unselect();
+            selected = null;
+            updateNewServerForm(e.position);
+            updateServerInformation(selected);
     }
 });
 

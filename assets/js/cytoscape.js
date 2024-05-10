@@ -27,6 +27,12 @@ const cy = cytoscape({
             }
         },
         {
+            selector: "edge:selected",
+            style: {
+                "line-color": "#ccc266"
+            }
+        },
+        {
             selector: 'node:selected',
             style: {
                 "border-color": "grey",
