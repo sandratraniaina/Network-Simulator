@@ -36,11 +36,13 @@ const search = (website) => {
     if (selected != null) {
         let onNode = getOnServer(servers);
 
-        let path = findShortestPathBFS(selected, website, onNode);
+        let bfs = document.getElementById("bfs");
+        let path = bfs.checked ? findShortestPath(selected, website, onNode) : findShortestPathBFS(selected, website);
         if (path == null) {
             alert("No path found");
             return ;
         }
+        console.log(path);
         let edges = getEdgeId(path);
 
         path.forEach((server) => {
@@ -70,7 +72,7 @@ refreshBtn.addEventListener("click", () => {
     refreshUI();
 });
 
-const findShortestPathBFS = (startNode, website, servers) => {
+const findShortestPathBFS = (startNode, website) => {
     let visitedNodes = new Set();
     let previousNodes = {};
     let pathQueue = [{ node: startNode, totalLatency: 0 }];
@@ -79,7 +81,6 @@ const findShortestPathBFS = (startNode, website, servers) => {
     previousNodes[startNode.ip] = null;
 
     while (pathQueue.length > 0) {
-        pathQueue.sort((a, b) => a.totalLatency - b.totalLatency);
         let { node: currentNode, totalLatency } = pathQueue.shift();
 
         if (currentNode.websites.includes(website)) {
@@ -106,8 +107,6 @@ const findShortestPathBFS = (startNode, website, servers) => {
 
     return null;
 };
-
-
 
 const findShortestPath = (startNode, website, servers) => {
     let distances = {};

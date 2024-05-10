@@ -89,6 +89,7 @@ const newLink = (source, target, ping) => {
 
     edges.push(newLink);
     cy.add(newLink);
+    console.log(newLink);
 }
 
 const basicServerInfo = () => {
