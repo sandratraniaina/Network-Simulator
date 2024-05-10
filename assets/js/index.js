@@ -166,7 +166,6 @@ const removeLink = (source, target) => {
     });
 }
 
-
 const handleEdge = (e) => {
     let edge = e.target;
     if (selectedEdge != null && edge.id() == selectedEdge.data.id) {
@@ -240,7 +239,7 @@ linkBtn.addEventListener("click", (e) => {
 
 deleteBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    deleteNode();
+    deleteNode(selected);
 });
 
 powerOffBtn.addEventListener("click", (e) => {
