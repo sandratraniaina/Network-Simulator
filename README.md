@@ -18,8 +18,8 @@ This project is a network simulator built using HTML, CSS, JavaScript, and the C
 
 **Prerequisites:**
 
-- Node JS
-- Any modern browser
+* Node JS
+* Any modern browser
 
 ### Running the Project
 
